@@ -8,6 +8,9 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 
+import com.whallalabs.testapp2.utils.ISwipeGesture;
+import com.whallalabs.testapp2.utils.SwipeGestureDetector;
+
 /**
  * Created by kamil on 09.05.15.
  */
@@ -15,9 +18,12 @@ public class SpeechRecognition {
     public final static int REQUEST_SPEECH_RECOGNITION = 55;
     private Activity activity;
 
+    SwipeGestureDetector swipeGestureDetector;
+
     public SpeechRecognition(Activity activity, View doubleTapView) {
         this.activity = activity;
         initDoubleTabListener(doubleTapView);
+         swipeGestureDetector =   new SwipeGestureDetector((ISwipeGesture) activity);
     }
 
     public void startRecognition() {
@@ -80,9 +86,13 @@ public class SpeechRecognition {
                 return false;
             }
         });
+
         view.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
+                if(motionEvent.getPointerCount() == 2) {
+                    swipeGestureDetector.detecDirection(motionEvent);
+                }
                 gestureDetector.onTouchEvent(motionEvent);
                 return false;
             }

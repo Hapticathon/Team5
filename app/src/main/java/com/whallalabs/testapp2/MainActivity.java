@@ -45,18 +45,20 @@ public class MainActivity extends ActionBarActivity implements ISwipeGesture{
     private Context _activityContext;
     private GestureDetector gestureDetector;
     private SwipeGestureDetector _swipeGesture;
+    private SwipeGestureDetector.HSwipie _currentHEvent;
+    private SwipeGestureDetector.VSwipie _currentVEvent;
 
 
-    private View.OnTouchListener _gestureTouchListener = new View.OnTouchListener() {
-        @Override
-        public boolean onTouch(View view, MotionEvent event) {
-//            if(event.getPointerCount() == TWO_FINGER) {
-                _swipeGesture.detecDirection(event);
-//            }
-
-            return false;
-        }
-    };
+//    private View.OnTouchListener _gestureTouchListener = new View.OnTouchListener() {
+//        @Override
+//        public boolean onTouch(View view, MotionEvent event) {
+////            if(event.getPointerCount() == TWO_FINGER) {
+////                _swipeGesture.detecDirection(event);
+////            }
+//
+//            return false;
+//        }
+//    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,14 +68,17 @@ public class MainActivity extends ActionBarActivity implements ISwipeGesture{
         gestureDetector = new GestureDetector(this, _swipeGesture);
 
         _frictionMapView = (FrictionMapView) findViewById(R.id.frictionmap);
-        _frictionMapView.setOnTouchListener(_gestureTouchListener);
 
-        Bitmap bm = Utils.drawableToBitmap(getResources().getDrawable(R.drawable.test1));
-                _frictionMapView.setDataBitmap(bm);
+
+        Bitmap bm = Utils.drawableToBitmap(getResources().getDrawable(R.drawable.map5));
+        _frictionMapView.setDataBitmap(bm);
 
         checkVoiceRecognition();
         initTochEvents();
+        initFrictionLayout();
         SpeechRecognition speechRecognition = new SpeechRecognition(this, _frictionMapView);
+
+//        _frictionMapView.setOnTouchListener(_gestureTouchListener);
     }
 
 
@@ -95,26 +100,65 @@ public class MainActivity extends ActionBarActivity implements ISwipeGesture{
 
     @Override
     public void swipeUP() {
-        _tpad.turnOff();
-        Log.d(SwipeGestureDetector.LOGTAG, "up");
+        if(_currentVEvent != SwipeGestureDetector.VSwipie.UP_SWIPE){
+            up();
+            _currentVEvent = SwipeGestureDetector.VSwipie.UP_SWIPE;
+        }
     }
 
     @Override
     public void swipeDown() {
-        _tpad.turnOff();
-        Log.d(SwipeGestureDetector.LOGTAG, "down");
+        if(_currentVEvent != SwipeGestureDetector.VSwipie.DOWN_SWIPE){
+            down();
+            _currentVEvent = SwipeGestureDetector.VSwipie.DOWN_SWIPE;
+        }
+
     }
 
     @Override
     public void swipeLeft() {
-        _tpad.turnOff();
-        Log.d(SwipeGestureDetector.LOGTAG, "left");
+        if(_currentHEvent != SwipeGestureDetector.HSwipie.LEFT_SWIPE) {
+            left();
+            _currentHEvent = SwipeGestureDetector.HSwipie.LEFT_SWIPE;
+        }
     }
 
     @Override
     public void swipeRight() {
+        if(_currentHEvent != SwipeGestureDetector.HSwipie.RIGHT_SWIPE) {
+            right();
+            _currentHEvent = SwipeGestureDetector.HSwipie.RIGHT_SWIPE;
+        }
+    }
+
+    @Override
+    public void actionUp() {
+//        _tpad.tur
+    }
+
+    private void left() {
         _tpad.turnOff();
+        Toast.makeText(this, "LEFT", Toast.LENGTH_SHORT).show();
+        Log.d(SwipeGestureDetector.LOGTAG, "left");
+    }
+
+    private void right(){
+        _tpad.turnOff();
+        Toast.makeText(this, "right", Toast.LENGTH_SHORT).show();
         Log.d(SwipeGestureDetector.LOGTAG, "right");
+    }
+
+
+    public void up(){
+        _tpad.turnOff();
+        Toast.makeText(this, "UP", Toast.LENGTH_SHORT).show();
+        Log.d(SwipeGestureDetector.LOGTAG, "up");
+    }
+
+    public void down(){
+        _tpad.turnOff();
+        Toast.makeText(this, "DOWN", Toast.LENGTH_SHORT).show();
+        Log.d(SwipeGestureDetector.LOGTAG, "down");
     }
 
     @Override

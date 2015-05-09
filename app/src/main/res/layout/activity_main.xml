@@ -17,10 +17,10 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 
-        <com.whallalabs.testapp2.view.TouchView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-        </com.whallalabs.testapp2.view.TouchView>
+        <!--<com.whallalabs.testapp2.view.TouchView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent">-->
+        <!--</com.whallalabs.testapp2.view.TouchView>-->
 
     </FrameLayout>
 </RelativeLayout>

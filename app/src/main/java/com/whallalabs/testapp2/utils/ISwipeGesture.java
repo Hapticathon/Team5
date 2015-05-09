@@ -8,4 +8,6 @@ public interface ISwipeGesture {
     void swipeDown();
     void swipeLeft();
     void swipeRight();
+
+    void actionUp();
 }

@@ -23,6 +23,8 @@ public class SwipeGestureDetector extends GestureDetector.SimpleOnGestureListene
     private SwipeGestureDetector.HSwipie h_swipe;
     private SwipeGestureDetector.VSwipie v_swipe;
     private float baseX, baseY, previousX , previousY;
+    private HSwipie currentHEvent;
+    private HSwipie currentVEvent;
     
 
     private ISwipeGesture _swipeGesture;
@@ -268,7 +270,7 @@ public class SwipeGestureDetector extends GestureDetector.SimpleOnGestureListene
                     {
                         if (current_diffX > 0)
                         {
-                            _swipeGesture.swipeRight();
+                                _swipeGesture.swipeRight();
                         }
                         else
                         {
@@ -316,6 +318,8 @@ public class SwipeGestureDetector extends GestureDetector.SimpleOnGestureListene
 
                 previousX = 0.0f;
                 previousY = 0.0f;
+
+                _swipeGesture.actionUp();
 
                 //As the event is consumed, return true
                 result = true;
