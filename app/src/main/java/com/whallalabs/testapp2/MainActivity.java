@@ -8,11 +8,16 @@ import android.speech.RecognizerIntent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
+import android.view.View;
 import android.widget.Toast;
 
 import com.whallalabs.testapp2.speechrecognition.SpeechRecognition;
 import com.whallalabs.testapp2.utils.Utils;
 
+import java.lang.reflect.Array;
+import java.util.Arrays;
 import java.util.List;
 
 import nxr.tpad.lib.TPad;
@@ -34,12 +39,7 @@ public class MainActivity extends ActionBarActivity {
 
         checkVoiceRecognition();
         initFrictionLayout();
-        initSpeechRecognition();
-    }
-
-    private void initSpeechRecognition() {
-        SpeechRecognition speechRecognition = new SpeechRecognition(this);
-        speechRecognition.startRecognition();
+        SpeechRecognition speechRecognition = new SpeechRecognition(this, _frictionMapView);
     }
 
     private void initFrictionLayout() {
@@ -60,10 +60,13 @@ public class MainActivity extends ActionBarActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-    }
-
-    private void initTochEvents() {
-
+        if (requestCode == SpeechRecognition.REQUEST_SPEECH_RECOGNITION) {
+            if (data != null && data.getExtras() != null) {
+                List<String> results = (List<String>) data.getExtras().get(RecognizerIntent.EXTRA_RESULTS);
+                Log.i("Speech result", results.toString());
+            }
+        } else {
+            super.onActivityResult(requestCode, resultCode, data);
+        }
     }
 }
