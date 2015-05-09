@@ -19,7 +19,7 @@ public class MapFactory {
                 break;
             }
             case BEACON:{
-//                result = createBeaconMap();
+                result = createBeaconMap();
             }
         }
 
@@ -27,15 +27,19 @@ public class MapFactory {
     }
 
     private static Integer[][]  createHouseMap(){
-        Integer[][] result = new Integer[][]{{null, R.drawable.h_1,null},{R.drawable.h_2,R.drawable.h_3,R.drawable.h_4},{null,R.drawable.h_5,null}};
+        Integer[][] result = new Integer[][]{{null, R.drawable.h_1,null},
+                {R.drawable.h_2,R.drawable.h_3,R.drawable.h_4},
+                {null,R.drawable.h_5,null}};
 
         return result;
     }
 
-//    private static Integer[][]  createBeaconMap(){
-//        Integer[][] result = new Integer[][]{{null,"b_1",null},{"b_2","b_3","b_4"},{null,"b_5",null}};
-//
-//        return result;
-//    }
+    private static Integer[][]  createBeaconMap(){
+        Integer[][] result = new Integer[][]{{null, R.drawable.h_1,null},
+                {R.drawable.h_2,R.drawable.h_3,R.drawable.h_4},
+                {null,R.drawable.h_5,null}};
+
+        return result;
+    }
 
 }
