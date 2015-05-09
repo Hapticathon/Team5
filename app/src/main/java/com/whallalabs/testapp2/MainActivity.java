@@ -188,6 +188,7 @@ public class MainActivity extends ActionBarActivity implements ISwipeGesture{
         _touchView.setMap(map);
         _touchView.init();
 
+
     }
 
 

@@ -28,7 +28,7 @@ public class TouchView extends FrameLayout {
 
     public static int WIDTH = 720;
     public static int HEIGTH = 1280;
-    public static int ANIMATION_DURATION = 500;
+    public static int ANIMATION_DURATION = 3000;
     private int _count = 1;
     private int _cuurentX = 1;
     private int _cuurentY = 1;
@@ -64,33 +64,33 @@ public class TouchView extends FrameLayout {
     OnClickListener _onClickListener = new OnClickListener() {
         @Override
         public void onClick(View view) {
-            switch (_count) {
-                case 1: {
-                    swipeDown();
-                    break;
-                }
-                case 2: {
-                    swipeUp();
-                    break;
-                }
-                case 3: {
-                    swipeLeft();
-                    break;
-                }
-                case 4: {
-                    swipeLeft();
-                    break;
-                }
-                case 5: {
-                    swipeRight();
-                    break;
-                }
-                case 6: {
-                    swipeUp();
-                    break;
-                }
-            }
-            _count++;
+//            switch (_count) {
+//                case 1: {
+//                    swipeDown();
+//                    break;
+//                }
+//                case 2: {
+//                    swipeUp();
+//                    break;
+//                }
+//                case 3: {
+//                    swipeLeft();
+//                    break;
+//                }
+//                case 4: {
+//                    swipeLeft();
+//                    break;
+//                }
+//                case 5: {
+//                    swipeRight();
+//                    break;
+//                }
+//                case 6: {
+//                    swipeUp();
+//                    break;
+//                }
+//            }
+//            _count++;
         }
     };
 
@@ -114,6 +114,7 @@ public class TouchView extends FrameLayout {
         _mainImageView.setLayoutParams(getLP());
         _mainImageView.setImageResource(_map[_cuurentX][_cuurentY]);
         _mainImageView.setOnClickListener(_onClickListener);
+        _mainImageView.setScaleType(ImageView.ScaleType.FIT_XY);
 
         addView(_mainImageView);
         _currentMain = _mainImageView;
@@ -123,13 +124,14 @@ public class TouchView extends FrameLayout {
         _secondImageView.setBackgroundColor(Color.BLUE);
         _secondImageView.setOnClickListener(_onClickListener);
         _secondImageView.setVisibility(GONE);
+        _secondImageView.setScaleType(ImageView.ScaleType.FIT_XY);
         addView(_secondImageView);
         _currentSecond = _secondImageView;
 
     }
 
     private ViewGroup.LayoutParams getLP() {
-        ViewGroup.LayoutParams result = new ViewGroup.LayoutParams(WIDTH, HEIGTH);
+        ViewGroup.LayoutParams result = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         return result;
     }
 
