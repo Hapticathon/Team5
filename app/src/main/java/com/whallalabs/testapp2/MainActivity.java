@@ -26,6 +26,7 @@ import com.whallalabs.testapp2.speechrecognition.PlacesRecognizer;
 import com.whallalabs.testapp2.utils.MapFactory;
 import com.whallalabs.testapp2.speechrecognition.SpeechRecognition;
 import com.whallalabs.testapp2.utils.Utils;
+import com.whallalabs.testapp2.view.TouchView;
 
 import java.lang.reflect.Array;
 import java.util.Arrays;
@@ -47,6 +48,7 @@ public class MainActivity extends ActionBarActivity implements ISwipeGesture{
     private SwipeGestureDetector _swipeGesture;
     private SwipeGestureDetector.HSwipie _currentHEvent;
     private SwipeGestureDetector.VSwipie _currentVEvent;
+    private TouchView _touchView;
 
 
 //    private View.OnTouchListener _gestureTouchListener = new View.OnTouchListener() {
@@ -68,7 +70,7 @@ public class MainActivity extends ActionBarActivity implements ISwipeGesture{
         gestureDetector = new GestureDetector(this, _swipeGesture);
 
         _frictionMapView = (FrictionMapView) findViewById(R.id.frictionmap);
-
+        _touchView = (TouchView) findViewById(R.id.touchview);
 
         Bitmap bm = Utils.drawableToBitmap(getResources().getDrawable(R.drawable.map5));
         _frictionMapView.setDataBitmap(bm);
