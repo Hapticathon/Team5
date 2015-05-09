@@ -46,8 +46,6 @@ public class TouchView extends FrameLayout {
 
         @Override
         public void onAnimationEnd(Animator animator) {
-            _currentMain = _secondImageView;
-            _currentSecond = _mainImageView;
         }
 
         @Override
@@ -70,23 +68,23 @@ public class TouchView extends FrameLayout {
                     break;
                 }
                 case 2: {
-                    swipeDown();
+                    swipeUp();
                     break;
                 }
                 case 3: {
-                    swipeDown();
+                    swipeLeft();
                     break;
                 }
                 case 4: {
-                    swipeDown();
+                    swipeLeft();
                     break;
                 }
                 case 5: {
-                    swipeDown();
+                    swipeRight();
                     break;
                 }
                 case 6: {
-                    swipeDown();
+                    swipeUp();
                     break;
                 }
             }
@@ -138,81 +136,66 @@ public class TouchView extends FrameLayout {
     }
 
     public void swipe(Direction direction, int points) {
+        _currentMain.setTranslationX(0);
+        _currentMain.setTranslationY(0);
         switch (direction) {
             case LEFT: {
-                _currentMain.setTranslationX(0);
-                _currentMain.animate()
-                        .setListener(_animatorListener)
-                        .translationXBy(points * -1).setDuration(ANIMATION_DURATION).start();
-                _currentSecond.setTranslationX(points - 1);
-                setVisible(_currentSecond);
-                _currentSecond.animate().translationXBy(points * -1).setDuration(ANIMATION_DURATION).start();
-
-
-                break;
-            }
-            case RIGHT: {
-                _currentMain.setTranslationX(0);
                 _currentMain.animate()
                         .setListener(_animatorListener)
                         .translationXBy(points).setDuration(ANIMATION_DURATION).start();
                 _currentSecond.setTranslationX(points * -1);
+                _currentSecond.setTranslationY(0);
                 setVisible(_currentSecond);
                 _currentSecond.animate().translationXBy(points).setDuration(ANIMATION_DURATION).start();
+                switchCurrent();
 
+
+//                _currentMain.animate()
+//                        .setListener(_animatorListener)
+//                        .translationXBy(points * -1).setDuration(ANIMATION_DURATION).start();
+//                _currentSecond.setTranslationX(points - 1);
+//                setVisible(_currentSecond);
+//                _currentSecond.animate().translationXBy(points * -1).setDuration(ANIMATION_DURATION).start();
+//                switchCurrent();
+
+                break;
+            }
+            case RIGHT: {
+                _currentMain.animate()
+                        .setListener(_animatorListener)
+                        .translationXBy(points * -1).setDuration(ANIMATION_DURATION).start();
+                _currentSecond.setTranslationX(points);
+                _currentSecond.setTranslationY(0);
+                setVisible(_currentSecond);
+                _currentSecond.animate().translationXBy(points * -1).setDuration(ANIMATION_DURATION).start();
+                switchCurrent();
 
                 break;
             }
 
             case UP: {
-//                _currentMain.setTranslationY(0);
-//                _currentMain.animate()
-//                        .setListener(_animatorListener)
-//                        .translationYBy(points).setDuration(ANIMATION_DURATION).start();
-//                _currentSecond.setTranslationY(points * -1);
-//                setVisible(_currentSecond);
-//                _currentSecond.animate().translationYBy(points).setDuration(ANIMATION_DURATION).start();
-                Animation outAnim = AnimationUtils.loadAnimation(getContext(), R.anim.fade_out_down);
-                Animation inAnim = AnimationUtils.loadAnimation(getContext(), R.anim.fade_in_down);
-
-                _currentMain.setAnimation(outAnim);
-                _currentSecond.setAnimation(inAnim);
-
-                AnimationSet as = new AnimationSet(true);
-                as.addAnimation(outAnim);
-                as.addAnimation(inAnim);
-                as.setInterpolator(new AccelerateInterpolator());
-                as.setAnimationListener(new Animation.AnimationListener() {
-                    @Override
-                    public void onAnimationStart(Animation animation) {
-
-                    }
-
-                    @Override
-                    public void onAnimationEnd(Animation animation) {
-                        _currentMain = _secondImageView;
-                        _currentSecond = _mainImageView;
-                    }
-
-                    @Override
-                    public void onAnimationRepeat(Animation animation) {
-
-                    }
-                });
-                as.startNow();
+                _currentMain.animate()
+                        .setListener(_animatorListener)
+                        .translationYBy(points).setDuration(ANIMATION_DURATION).start();
+                _currentSecond.setTranslationY(points * -1);
+                _currentSecond.setTranslationX(0);
+                setVisible(_currentSecond);
+                _currentSecond.animate().translationYBy(points).setDuration(ANIMATION_DURATION).start();
+                switchCurrent();
 
 
                 break;
             }
 
             case DOWN: {
-                _currentMain.setTranslationY(0);
                 _currentMain.animate()
                         .setListener(_animatorListener)
-                        .translationYBy(points * -1).setDuration(ANIMATION_DURATION).start();
+                        .translationY(points * -1).setDuration(ANIMATION_DURATION).start();
                 _currentSecond.setTranslationY(points);
+                _currentSecond.setTranslationX(0);
                 setVisible(_currentSecond);
-                _currentSecond.animate().translationYBy(points * -1).setDuration(ANIMATION_DURATION).start();
+                _currentSecond.animate().translationY(0).setDuration(ANIMATION_DURATION).start();
+                switchCurrent();
 
                 break;
             }
@@ -251,6 +234,13 @@ public class TouchView extends FrameLayout {
         if (view.getVisibility() != VISIBLE) {
             view.setVisibility(VISIBLE);
         }
+    }
+
+    private void switchCurrent(){
+
+        ImageView tmp = _currentMain;
+        _currentMain = _currentSecond;
+        _currentSecond = tmp;
     }
 
 }
