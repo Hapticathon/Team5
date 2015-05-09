@@ -43,6 +43,10 @@ public class TouchView extends FrameLayout {
                     swipeRight();
                     break;
                 }
+                case 3:{
+                    swipeRight();
+                    break;
+                }
             }
             _count++;
         }
@@ -115,6 +119,19 @@ public class TouchView extends FrameLayout {
                 _currentSecond.setTranslationX(points * -1);
                 setVisible(_currentSecond);
                 _currentSecond.animate().translationXBy(points).setDuration(ANIMATION_DURATION).start();
+
+                _currentMain = _secondImageView;
+                _currentSecond = _mainImageView;
+
+                break;
+            }
+
+            case UP:{
+                _currentMain.setTranslationY(0);
+                _currentMain.animate().translationYBy(points).setDuration(ANIMATION_DURATION).start();
+                _currentSecond.setTranslationY(points * -1);
+                setVisible(_currentSecond);
+                _currentSecond.animate().translationYBy(points).setDuration(ANIMATION_DURATION).start();
 
                 _currentMain = _secondImageView;
                 _currentSecond = _mainImageView;

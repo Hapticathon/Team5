@@ -45,10 +45,7 @@ public class MainActivity extends ActionBarActivity {
         SpeechRecognition speechRecognition = new SpeechRecognition(this, _frictionMapView);
     }
 
-    private void initFrictionLayout() {
-        _tpad = new TPadImpl(this);
-        _frictionMapView.setTpad(_tpad);
-    }
+
 
     public void checkVoiceRecognition() {
         // Check if voice recognition is present
@@ -71,6 +68,7 @@ public class MainActivity extends ActionBarActivity {
         } else {
             super.onActivityResult(requestCode, resultCode, data);
         }
+    }
 
     private void initFrictionLayout(){
         _tpad = new TPadImpl(this);
