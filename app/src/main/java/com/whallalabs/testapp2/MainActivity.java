@@ -72,7 +72,6 @@ public class MainActivity extends ActionBarActivity implements ISwipeGesture{
                 _frictionMapView.setDataBitmap(bm);
 
         checkVoiceRecognition();
-        initFrictionLayout();
         initTochEvents();
         SpeechRecognition speechRecognition = new SpeechRecognition(this, _frictionMapView);
     }
@@ -87,13 +86,6 @@ public class MainActivity extends ActionBarActivity implements ISwipeGesture{
             Toast.makeText(this, "Voice recognizer not present",
                     Toast.LENGTH_SHORT).show();
         }
-    }
-
-
-    private void initFrictionLayout(){
-        _tpad = new TPadImpl(this);
-        _frictionMapView.setTpad(_tpad);
-
     }
 
     private void initTochEvents(){
@@ -156,7 +148,4 @@ public class MainActivity extends ActionBarActivity implements ISwipeGesture{
 
     }
 
-    private void initTochEvents() {
-
-    }
 }
