@@ -13,6 +13,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
 
+import com.whallalabs.testapp2.utils.MapFactory;
 import com.whallalabs.testapp2.speechrecognition.SpeechRecognition;
 import com.whallalabs.testapp2.utils.Utils;
 
@@ -36,16 +37,15 @@ public class MainActivity extends ActionBarActivity {
         _frictionMapView = (FrictionMapView) findViewById(R.id.frictionmap);
         Bitmap bm = Utils.drawableToBitmap(getResources().getDrawable(R.drawable.test1));
         _frictionMapView.setDataBitmap(bm);
+      //  Bitmap bm = Utils.drawableToBitmap(getResources().getDrawable(R.drawable.test1));
+      //          _frictionMapView.setDataBitmap(bm);
 
         checkVoiceRecognition();
         initFrictionLayout();
         SpeechRecognition speechRecognition = new SpeechRecognition(this, _frictionMapView);
     }
 
-    private void initFrictionLayout() {
-        _tpad = new TPadImpl(this);
-        _frictionMapView.setTpad(_tpad);
-    }
+
 
     public void checkVoiceRecognition() {
         // Check if voice recognition is present
@@ -68,5 +68,19 @@ public class MainActivity extends ActionBarActivity {
         } else {
             super.onActivityResult(requestCode, resultCode, data);
         }
+    }
+
+    private void initFrictionLayout(){
+        _tpad = new TPadImpl(this);
+        _frictionMapView.setTpad(_tpad);
+
+        String[][] map = MapFactory.getMap(MapFactory.MapType.BEACON);
+
+        map.getClass();
+
+    }
+
+    private void initTochEvents(){
+
     }
 }
