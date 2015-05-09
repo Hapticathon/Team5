@@ -13,6 +13,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
 
+import com.whallalabs.testapp2.speechrecognition.PlacesRecognizer;
 import com.whallalabs.testapp2.utils.MapFactory;
 import com.whallalabs.testapp2.speechrecognition.SpeechRecognition;
 import com.whallalabs.testapp2.utils.Utils;
@@ -37,15 +38,11 @@ public class MainActivity extends ActionBarActivity {
         _frictionMapView = (FrictionMapView) findViewById(R.id.frictionmap);
         Bitmap bm = Utils.drawableToBitmap(getResources().getDrawable(R.drawable.test1));
         _frictionMapView.setDataBitmap(bm);
-      //  Bitmap bm = Utils.drawableToBitmap(getResources().getDrawable(R.drawable.test1));
-      //          _frictionMapView.setDataBitmap(bm);
 
         checkVoiceRecognition();
         initFrictionLayout();
         SpeechRecognition speechRecognition = new SpeechRecognition(this, _frictionMapView);
     }
-
-
 
     public void checkVoiceRecognition() {
         // Check if voice recognition is present
@@ -63,14 +60,18 @@ public class MainActivity extends ActionBarActivity {
         if (requestCode == SpeechRecognition.REQUEST_SPEECH_RECOGNITION) {
             if (data != null && data.getExtras() != null) {
                 List<String> results = (List<String>) data.getExtras().get(RecognizerIntent.EXTRA_RESULTS);
-                Log.i("Speech result", results.toString());
+                String recognizedPlace = PlacesRecognizer.getRecognizedPlace(results);
+                if (recognizedPlace != null) {
+                    onPlaceRecognized(recognizedPlace);
+                    Log.i("Speech result", recognizedPlace);
+                }
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data);
         }
     }
 
-    private void initFrictionLayout(){
+    private void initFrictionLayout() {
         _tpad = new TPadImpl(this);
         _frictionMapView.setTpad(_tpad);
 
@@ -80,7 +81,12 @@ public class MainActivity extends ActionBarActivity {
 
     }
 
-    private void initTochEvents(){
+
+    private void onPlaceRecognized(String place) {
+
+    }
+
+    private void initTochEvents() {
 
     }
 }

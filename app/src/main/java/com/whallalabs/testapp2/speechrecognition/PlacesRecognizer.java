@@ -5,10 +5,10 @@ import java.util.List;
 /**
  * Created by kamil on 09.05.15.
  */
-public class PlacesRecognizer {
-    public String[] mockPlaces = {"urząd miasta", "lotnisko"};
+public abstract class PlacesRecognizer {
+    public static String[] mockPlaces = {"urząd miasta", "lotnisko"};
 
-    public String getRecognizedPlace(List<String> recognizedWords) {
+    public static String getRecognizedPlace(List<String> recognizedWords) {
         for (String recognizedWord : recognizedWords) {
             if (isPlaceValid(recognizedWord)) {
                 return recognizedWord;
@@ -17,7 +17,7 @@ public class PlacesRecognizer {
         return null;
     }
 
-    public boolean isPlaceValid(String place) {
+    private static boolean isPlaceValid(String place) {
         place = place.toLowerCase().trim();
         for (String s : mockPlaces) {
             if (s.equals(place)) {
