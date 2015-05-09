@@ -183,9 +183,10 @@ public class MainActivity extends ActionBarActivity implements ISwipeGesture{
         _tpad = new TPadImpl(this);
         _frictionMapView.setTpad(_tpad);
 
-        String[][] map = MapFactory.getMap(MapFactory.MapType.BEACON);
+        Integer[][] map = MapFactory.getMap(MapFactory.MapType.HOUSE);
 
-        map.getClass();
+        _touchView.setMap(map);
+        _touchView.init();
 
     }
 

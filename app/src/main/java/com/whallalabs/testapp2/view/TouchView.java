@@ -30,13 +30,15 @@ public class TouchView extends FrameLayout {
     public static int HEIGTH = 1280;
     public static int ANIMATION_DURATION = 500;
     private int _count = 1;
+    private int _cuurentX = 1;
+    private int _cuurentY = 1;
 
     ImageView _mainImageView;
     ImageView _secondImageView;
     ImageView _currentMain;
     ImageView _currentSecond;
 
-    String[][] _map;
+    Integer[][] _map;
 
     Animator.AnimatorListener _animatorListener = new Animator.AnimatorListener() {
         @Override
@@ -94,23 +96,23 @@ public class TouchView extends FrameLayout {
 
     public TouchView(Context context) {
         super(context);
-        init();
+//        init();
     }
 
     public TouchView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        init();
+//        init();
     }
 
     public TouchView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        init();
+//        init();
     }
 
-    private void init() {
+    public void init() {
         _mainImageView = new ImageView(getContext());
         _mainImageView.setLayoutParams(getLP());
-        _mainImageView.setBackgroundColor(Color.RED);
+        _mainImageView.setImageResource(_map[_cuurentX][_cuurentY]);
         _mainImageView.setOnClickListener(_onClickListener);
 
         addView(_mainImageView);
@@ -131,7 +133,7 @@ public class TouchView extends FrameLayout {
         return result;
     }
 
-    public void setMap(String[][] map) {
+    public void setMap(Integer[][] map) {
         _map = map;
     }
 
@@ -203,23 +205,51 @@ public class TouchView extends FrameLayout {
     }
 
     public void swipeLeft() {
-        int distance = getDistanceWidth();
-        swipe(Direction.LEFT, distance);
+        Integer res = _map[_cuurentX-1][_cuurentY];
+
+        if (res != null){
+            _secondImageView.setImageResource(res);
+            int distance = getDistanceWidth();
+            swipe(Direction.LEFT, distance);
+            _cuurentX--;
+        }
+
+
     }
 
     public void swipeRight() {
-        int distance = getDistanceWidth();
-        swipe(Direction.RIGHT, distance);
+
+        Integer res = _map[_cuurentX+1][_cuurentY];
+
+        if (res != null){
+            _secondImageView.setImageResource(res);
+            int distance = getDistanceWidth();
+            swipe(Direction.RIGHT, distance);
+            _cuurentX++;
+        }
     }
 
     public void swipeUp() {
-        int distance = getDistanceHeigth();
-        swipe(Direction.UP, distance);
+
+        Integer res = _map[_cuurentX][_cuurentY - 1];
+
+        if (res != null){
+            _secondImageView.setImageResource(res);
+            int distance = getDistanceHeigth();
+            swipe(Direction.UP, distance);
+            _cuurentY--;
+        }
     }
 
     public void swipeDown() {
-        int distance = getDistanceHeigth();
-        swipe(Direction.DOWN, distance);
+        Integer res = _map[_cuurentX][_cuurentY + 1];
+
+        if (res != null){
+            _secondImageView.setImageResource(res);
+            int distance = getDistanceHeigth();
+            swipe(Direction.DOWN, distance);
+            _cuurentY++;
+        }
     }
 
     private int getDistanceWidth() {
