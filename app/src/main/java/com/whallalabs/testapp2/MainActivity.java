@@ -49,7 +49,7 @@ public class MainActivity extends ActionBarActivity implements ISwipeGesture{
     private SwipeGestureDetector.HSwipie _currentHEvent;
     private SwipeGestureDetector.VSwipie _currentVEvent;
     private TouchView _touchView;
-    private String[][] _maps;
+    private Integer[][] _maps;
 
 
 //    private View.OnTouchListener _gestureTouchListener = new View.OnTouchListener() {
@@ -142,12 +142,14 @@ public class MainActivity extends ActionBarActivity implements ISwipeGesture{
 
     private void left() {
         _tpad.turnOff();
+        _touchView.swipeLeft();
         Toast.makeText(this, "LEFT", Toast.LENGTH_SHORT).show();
         Log.d(SwipeGestureDetector.LOGTAG, "left");
     }
 
     private void right(){
         _tpad.turnOff();
+        _touchView.swipeRight();
         Toast.makeText(this, "right", Toast.LENGTH_SHORT).show();
         Log.d(SwipeGestureDetector.LOGTAG, "right");
     }
@@ -155,6 +157,7 @@ public class MainActivity extends ActionBarActivity implements ISwipeGesture{
 
     public void up(){
         _tpad.turnOff();
+        _touchView.swipeUp();
         Toast.makeText(this, "UP", Toast.LENGTH_SHORT).show();
         Log.d(SwipeGestureDetector.LOGTAG, "up");
     }
@@ -191,7 +194,6 @@ public class MainActivity extends ActionBarActivity implements ISwipeGesture{
         _touchView.init();
 
     }
-
 
     private void onPlaceRecognized(String place) {
         if(place.contains(PlacesRecognizer.mockPlaces[1])){
