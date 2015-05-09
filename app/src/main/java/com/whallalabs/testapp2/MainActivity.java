@@ -48,9 +48,9 @@ public class MainActivity extends ActionBarActivity implements ISwipeGesture{
     private View.OnTouchListener _gestureTouchListener = new View.OnTouchListener() {
         @Override
         public boolean onTouch(View view, MotionEvent event) {
-            if(event.getPointerCount() == TWO_FINGER) {
+//            if(event.getPointerCount() == TWO_FINGER) {
                 _swipeGesture.detecDirection(event);
-            }
+//            }
 
             return false;
         }
@@ -75,10 +75,6 @@ public class MainActivity extends ActionBarActivity implements ISwipeGesture{
         SpeechRecognition speechRecognition = new SpeechRecognition(this, _frictionMapView);
     }
 
-    private void initFrictionLayout() {
-        _tpad = new TPadImpl(this);
-        _frictionMapView.setTpad(_tpad);
-    }
 
     public void checkVoiceRecognition() {
         // Check if voice recognition is present
@@ -125,6 +121,8 @@ public class MainActivity extends ActionBarActivity implements ISwipeGesture{
     public void swipeRight() {
         _tpad.turnOff();
         Log.d(SwipeGestureDetector.LOGTAG, "right");
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == SpeechRecognition.REQUEST_SPEECH_RECOGNITION) {
