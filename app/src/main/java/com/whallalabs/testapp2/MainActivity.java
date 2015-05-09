@@ -19,6 +19,7 @@ import com.whallalabs.testapp2.utils.ISwipeGesture;
 import com.whallalabs.testapp2.utils.MapFactory;
 import com.whallalabs.testapp2.utils.SwipeGestureDetector;
 import com.whallalabs.testapp2.utils.Utils;
+import com.whallalabs.testapp2.view.TouchView;
 
 import java.util.List;
 
@@ -38,6 +39,9 @@ public class MainActivity extends ActionBarActivity implements ISwipeGesture {
     private SwipeGestureDetector _swipeGesture;
 //    private SwipeGestureDetector.HSwipie _currentHEvent;
 //    private SwipeGestureDetector.VSwipie _currentVEvent;
+    private SwipeGestureDetector.HSwipie _currentHEvent;
+    private SwipeGestureDetector.VSwipie _currentVEvent;
+    private TouchView _touchView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +51,7 @@ public class MainActivity extends ActionBarActivity implements ISwipeGesture {
         gestureDetector = new GestureDetector(this, _swipeGesture);
 
         _frictionMapView = (FrictionMapView) findViewById(R.id.frictionmap);
+        _touchView = (TouchView) findViewById(R.id.touchview);
 
         Bitmap bm = Utils.drawableToBitmap(getResources().getDrawable(R.drawable.map5));
         _frictionMapView.setDataBitmap(bm);
@@ -100,9 +105,12 @@ public class MainActivity extends ActionBarActivity implements ISwipeGesture {
         _tpad = new TPadImpl(this);
         _frictionMapView.setTpad(_tpad);
 
-        String[][] map = MapFactory.getMap(MapFactory.MapType.BEACON);
+        Integer[][] map = MapFactory.getMap(MapFactory.MapType.HOUSE);
 
         map.getClass();
+        _touchView.setMap(map);
+        _touchView.init();
+
     }
 
 
