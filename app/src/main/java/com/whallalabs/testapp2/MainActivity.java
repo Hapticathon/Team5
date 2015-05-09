@@ -47,6 +47,7 @@ public class MainActivity extends ActionBarActivity implements ISwipeGesture{
     private SwipeGestureDetector _swipeGesture;
     private SwipeGestureDetector.HSwipie _currentHEvent;
     private SwipeGestureDetector.VSwipie _currentVEvent;
+    private String[][] _maps;
 
 
 //    private View.OnTouchListener _gestureTouchListener = new View.OnTouchListener() {
@@ -70,7 +71,7 @@ public class MainActivity extends ActionBarActivity implements ISwipeGesture{
         _frictionMapView = (FrictionMapView) findViewById(R.id.frictionmap);
 
 
-        Bitmap bm = Utils.drawableToBitmap(getResources().getDrawable(R.drawable.map5));
+        Bitmap bm = Utils.drawableToBitmap(getResources().getDrawable(R.drawable.map6));
         _frictionMapView.setDataBitmap(bm);
 
         checkVoiceRecognition();
@@ -189,7 +190,15 @@ public class MainActivity extends ActionBarActivity implements ISwipeGesture{
 
 
     private void onPlaceRecognized(String place) {
+        if(place.contains(PlacesRecognizer.mockPlaces[1])){
+            //urzad miasta
+           _maps =  MapFactory.getMap(MapFactory.MapType.HOUSE);
 
+        }else if(place.contains(PlacesRecognizer.mockPlaces[0])){
+            //lotnisko
+            _maps = MapFactory.getMap(MapFactory.MapType.BEACON);
+
+        }
     }
 
 }
