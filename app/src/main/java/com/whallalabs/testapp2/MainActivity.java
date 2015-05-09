@@ -27,6 +27,8 @@ import nxr.tpad.lib.TPad;
 import nxr.tpad.lib.TPadImpl;
 import nxr.tpad.lib.views.FrictionMapView;
 
+import static com.whallalabs.testapp2.utils.SwipeGestureDetector.*;
+
 public class MainActivity extends ActionBarActivity implements ISwipeGesture {
 
     private static final int TWO_FINGER = 2;
@@ -39,8 +41,6 @@ public class MainActivity extends ActionBarActivity implements ISwipeGesture {
     private SwipeGestureDetector _swipeGesture;
 //    private SwipeGestureDetector.HSwipie _currentHEvent;
 //    private SwipeGestureDetector.VSwipie _currentVEvent;
-    private SwipeGestureDetector.HSwipie _currentHEvent;
-    private SwipeGestureDetector.VSwipie _currentVEvent;
     private TouchView _touchView;
     private Integer[][] _maps;
 
@@ -82,8 +82,24 @@ public class MainActivity extends ActionBarActivity implements ISwipeGesture {
     }
 
     @Override
-    public void actionUp(SwipeGestureDetector.Swipe swipe) {
-        Log.d(SwipeGestureDetector.LOGTAG, swipe.name());
+    public void actionUp(Swipe swipe) {
+        Log.d(LOGTAG, swipe.name());
+        switch (swipe){
+            case UP:
+                _touchView.swipeUp();
+                break;
+            case DOWN:
+                _touchView.swipeDown();
+                break;
+
+            case LEFT:
+                _touchView.swipeLeft();
+                break;
+
+            case RIGHT:
+                _touchView.swipeRight();
+                break;
+        }
         Toast.makeText(this, swipe.name(), Toast.LENGTH_SHORT).show();
     }
 
