@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.whallalabs.testapp2.utils.MapFactory;
 import com.whallalabs.testapp2.utils.Utils;
 
 import nxr.tpad.lib.TPad;
@@ -23,8 +24,8 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         _frictionMapView = (FrictionMapView) findViewById(R.id.frictionmap);
-        Bitmap bm = Utils.drawableToBitmap(getResources().getDrawable(R.drawable.test1));
-                _frictionMapView.setDataBitmap(bm);
+      //  Bitmap bm = Utils.drawableToBitmap(getResources().getDrawable(R.drawable.test1));
+      //          _frictionMapView.setDataBitmap(bm);
 
         initFrictionLayout();
     }
@@ -55,6 +56,10 @@ public class MainActivity extends ActionBarActivity {
     private void initFrictionLayout(){
         _tpad = new TPadImpl(this);
         _frictionMapView.setTpad(_tpad);
+
+        String[][] map = MapFactory.getMap(MapFactory.MapType.BEACON);
+
+        map.getClass();
 
     }
 
