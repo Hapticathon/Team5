@@ -17,6 +17,13 @@ android {
     }
 }
 
+sourceSets {
+    main {
+        java.srcDirs = ['src']
+        resources.srcDirs = ['src']
+    }
+}
+
 dependencies {
     compile 'com.android.support:support-v4:19.+'
     compile files('libs/ioiolibaccessory.jar')

@@ -1,9 +1,12 @@
 package com.whallalabs.testapp2;
 
+import android.graphics.Bitmap;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.whallalabs.testapp2.utils.Utils;
 
 import nxr.tpad.lib.TPad;
 import nxr.tpad.lib.TPadImpl;
@@ -13,12 +16,17 @@ public class MainActivity extends ActionBarActivity {
 
     TPad _tpad;
     FrictionMapView _frictionMapView;
+    FrictionMapView _frictionMapView2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        init();
+        _frictionMapView = (FrictionMapView) findViewById(R.id.frictionmap);
+        Bitmap bm = Utils.drawableToBitmap(getResources().getDrawable(R.drawable.test1));
+                _frictionMapView.setDataBitmap(bm);
+
+        initFrictionLayout();
     }
 
     @Override
@@ -44,10 +52,13 @@ public class MainActivity extends ActionBarActivity {
     }
 
 
-    private void init(){
+    private void initFrictionLayout(){
         _tpad = new TPadImpl(this);
         _frictionMapView.setTpad(_tpad);
 
+    }
+
+    private void initTochEvents(){
 
     }
 }
