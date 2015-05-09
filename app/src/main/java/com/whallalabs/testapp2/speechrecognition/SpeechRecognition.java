@@ -21,8 +21,6 @@ public class SpeechRecognition {
     }
 
     public void startRecognition() {
-        SpeechRecognizer speechRecognizer = SpeechRecognizer.createSpeechRecognizer(activity);
-
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         intent.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE, activity.getClass()
                 .getPackage().getName());
@@ -64,6 +62,7 @@ public class SpeechRecognition {
                 return false;
             }
         });
+
         gestureDetector.setOnDoubleTapListener(new GestureDetector.OnDoubleTapListener() {
             @Override
             public boolean onSingleTapConfirmed(MotionEvent motionEvent) {
