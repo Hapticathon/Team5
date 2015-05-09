@@ -5,7 +5,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 
 /**
- * Created by MnM on 09.05.15.
+ * Created by Maciej Markiewicz on 09.05.15.
  */
 public class Utils {
 
