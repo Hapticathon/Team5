@@ -205,23 +205,32 @@ public class TouchView extends FrameLayout {
     }
 
     public void swipeLeft() {
-        Integer res = _map[_cuurentX-1][_cuurentY];
+        Integer res = null;
+        try {
+            res = _map[_cuurentX - 1][_cuurentY];
+        } catch (Exception e) {
 
-        if (res != null){
+        }
+
+
+        if (res != null) {
             _secondImageView.setImageResource(res);
             int distance = getDistanceWidth();
             swipe(Direction.LEFT, distance);
             _cuurentX--;
         }
 
-
     }
 
     public void swipeRight() {
+        Integer res = null;
+        try {
+            res = _map[_cuurentX + 1][_cuurentY];
+        } catch (Exception e) {
 
-        Integer res = _map[_cuurentX+1][_cuurentY];
+        }
 
-        if (res != null){
+        if (res != null) {
             _secondImageView.setImageResource(res);
             int distance = getDistanceWidth();
             swipe(Direction.RIGHT, distance);
@@ -230,10 +239,14 @@ public class TouchView extends FrameLayout {
     }
 
     public void swipeUp() {
+        Integer res = null;
+        try {
+            res = _map[_cuurentX][_cuurentY - 1];
+        } catch (Exception e) {
 
-        Integer res = _map[_cuurentX][_cuurentY - 1];
+        }
 
-        if (res != null){
+        if (res != null) {
             _secondImageView.setImageResource(res);
             int distance = getDistanceHeigth();
             swipe(Direction.UP, distance);
@@ -242,9 +255,14 @@ public class TouchView extends FrameLayout {
     }
 
     public void swipeDown() {
-        Integer res = _map[_cuurentX][_cuurentY + 1];
+        Integer res = null;
+        try {
 
-        if (res != null){
+            res = _map[_cuurentX][_cuurentY + 1];
+        } catch (Exception e) {
+
+        }
+        if (res != null) {
             _secondImageView.setImageResource(res);
             int distance = getDistanceHeigth();
             swipe(Direction.DOWN, distance);
@@ -266,7 +284,7 @@ public class TouchView extends FrameLayout {
         }
     }
 
-    private void switchCurrent(){
+    private void switchCurrent() {
 
         ImageView tmp = _currentMain;
         _currentMain = _currentSecond;
