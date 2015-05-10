@@ -37,7 +37,7 @@ public class MainActivity extends ActionBarActivity implements ISwipeGesture {
     private FrictionMapView _frictionMapView;
     private SwipeGestureDetector _swipeGesture;
     private TouchView _touchView;
-    private Integer[][] _maps;
+    private Integer[][] _map;
 
 
     @Override
@@ -51,6 +51,10 @@ public class MainActivity extends ActionBarActivity implements ISwipeGesture {
 
 //        Bitmap bm = Utils.drawableToBitmap(getResources().getDrawable(R.drawable.map6));
 //        _frictionMapView.setDataBitmap(bm);
+
+        Bitmap bm = Utils.drawableToBitmap(getResources().getDrawable(R.drawable.map6));
+        _frictionMapView.setDataBitmap(bm);
+
 
         Intent intent = getIntent();
         PlaceType type = (PlaceType) intent.getSerializableExtra(ARG_PLACE_TYPE);
@@ -90,7 +94,13 @@ public class MainActivity extends ActionBarActivity implements ISwipeGesture {
                 _touchView.swipeRight();
                 break;
         }
-        Toast.makeText(this, swipe.name(), Toast.LENGTH_SHORT).show();
+        int x = _touchView.getCuurentX();
+        int y = _touchView.getCuurentY();
+        Integer res = _map[x][y];
+        Bitmap bm = Utils.drawableToBitmap(getResources().getDrawable(res));
+        _frictionMapView.setDataBitmap(bm);
+
+//        Toast.makeText(this, swipe.name(), Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -115,10 +125,10 @@ public class MainActivity extends ActionBarActivity implements ISwipeGesture {
         _tpad = new TPadImpl(this);
         _frictionMapView.setTpad(_tpad);
 
-        Integer[][] map = MapFactory.getMap(MapFactory.MapType.HOUSE);
+        _map = MapFactory.getMap(MapFactory.MapType.HOUSE);
 
-        map.getClass();
-        _touchView.setMap(map);
+        _map.getClass();
+        _touchView.setMap(_map);
         _touchView.init();
 
     }
@@ -147,7 +157,7 @@ public class MainActivity extends ActionBarActivity implements ISwipeGesture {
 
         } else if(PlaceType.AIRPORT == place) {
             //lotnisko
-            _maps = MapFactory.getMap(MapFactory.MapType.BEACON);
+            _map = MapFactory.getMap(MapFactory.MapType.BEACON);
             VibrationManager.vibrate(this, VibrationManager.VibrationType.ACTION_SUCCESS);
 
         }
