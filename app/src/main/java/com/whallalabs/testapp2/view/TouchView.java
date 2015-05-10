@@ -16,6 +16,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import com.whallalabs.testapp2.R;
+import com.whallalabs.testapp2.utils.VibrationManager;
 
 /**
  * Created by Jarek on 09.05.15.
@@ -170,7 +171,7 @@ public class TouchView extends FrameLayout {
         try {
             res = _map[_cuurentX - 1][_cuurentY];
         } catch (Exception e) {
-
+            VibrationManager.vibrate(getContext(), VibrationManager.VibrationType.ACTION_FAIL);
         }
 
 
@@ -188,7 +189,7 @@ public class TouchView extends FrameLayout {
         try {
             res = _map[_cuurentX + 1][_cuurentY];
         } catch (Exception e) {
-
+            VibrationManager.vibrate(getContext(), VibrationManager.VibrationType.ACTION_FAIL);
         }
 
         if (res != null) {
@@ -204,7 +205,7 @@ public class TouchView extends FrameLayout {
         try {
             res = _map[_cuurentX][_cuurentY - 1];
         } catch (Exception e) {
-
+            VibrationManager.vibrate(getContext(), VibrationManager.VibrationType.ACTION_FAIL);
         }
 
         if (res != null) {
@@ -221,7 +222,7 @@ public class TouchView extends FrameLayout {
 
             res = _map[_cuurentX][_cuurentY + 1];
         } catch (Exception e) {
-
+            VibrationManager.vibrate(getContext(), VibrationManager.VibrationType.ACTION_FAIL);
         }
         if (res != null) {
             _currentSecond.setImageResource(res);
