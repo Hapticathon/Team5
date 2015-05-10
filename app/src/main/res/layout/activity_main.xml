@@ -1,25 +1,22 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                tools:context=".MainActivity">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <com.whallalabs.testapp2.view.TouchView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
 
-            android:id="@+id/touchview">
-        </com.whallalabs.testapp2.view.TouchView>
         <nxr.tpad.lib.views.FrictionMapView
             android:id="@+id/frictionmap"
-            android:alpha="0"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content" />
 
-
-
+        <com.whallalabs.testapp2.view.TouchView
+            android:id="@+id/touchview"
+            android:clickable="true"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
     </FrameLayout>
 </RelativeLayout>
