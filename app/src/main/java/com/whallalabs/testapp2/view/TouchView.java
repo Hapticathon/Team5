@@ -61,39 +61,6 @@ public class TouchView extends FrameLayout {
         }
     };
 
-    OnClickListener _onClickListener = new OnClickListener() {
-        @Override
-        public void onClick(View view) {
-//            switch (_count) {
-//                case 1: {
-//                    swipeDown();
-//                    break;
-//                }
-//                case 2: {
-//                    swipeUp();
-//                    break;
-//                }
-//                case 3: {
-//                    swipeLeft();
-//                    break;
-//                }
-//                case 4: {
-//                    swipeLeft();
-//                    break;
-//                }
-//                case 5: {
-//                    swipeRight();
-//                    break;
-//                }
-//                case 6: {
-//                    swipeUp();
-//                    break;
-//                }
-//            }
-//            _count++;
-        }
-    };
-
     public TouchView(Context context) {
         super(context);
 //        init();
@@ -113,7 +80,6 @@ public class TouchView extends FrameLayout {
         _mainImageView = new ImageView(getContext());
         _mainImageView.setLayoutParams(getLP());
         _mainImageView.setImageResource(_map[_cuurentX][_cuurentY]);
-        _mainImageView.setOnClickListener(_onClickListener);
         _mainImageView.setScaleType(ImageView.ScaleType.FIT_XY);
 
         addView(_mainImageView);
@@ -122,12 +88,10 @@ public class TouchView extends FrameLayout {
         _secondImageView = new ImageView(getContext());
         _secondImageView.setLayoutParams(getLP());
         _secondImageView.setBackgroundColor(Color.BLUE);
-        _secondImageView.setOnClickListener(_onClickListener);
         _secondImageView.setVisibility(GONE);
         _secondImageView.setScaleType(ImageView.ScaleType.FIT_XY);
         addView(_secondImageView);
         _currentSecond = _secondImageView;
-
     }
 
     private ViewGroup.LayoutParams getLP() {

@@ -30,17 +30,12 @@ import nxr.tpad.lib.views.FrictionMapView;
 import static com.whallalabs.testapp2.utils.SwipeGestureDetector.*;
 
 public class MainActivity extends ActionBarActivity implements ISwipeGesture {
-
-    private static final int TWO_FINGER = 2;
-    private static final int SWIPE_THRESHOLD = 50;
     private TPad _tpad;
     private FrictionMapView _frictionMapView;
     private View _gestureView;
     private Context _activityContext;
     private GestureDetector gestureDetector;
     private SwipeGestureDetector _swipeGesture;
-//    private SwipeGestureDetector.HSwipie _currentHEvent;
-//    private SwipeGestureDetector.VSwipie _currentVEvent;
     private TouchView _touchView;
     private Integer[][] _maps;
 
@@ -64,7 +59,6 @@ public class MainActivity extends ActionBarActivity implements ISwipeGesture {
         SpeechRecognition speechRecognition = new SpeechRecognition(this, _frictionMapView);
     }
 
-
     public void checkVoiceRecognition() {
         // Check if voice recognition is present
         PackageManager pm = getPackageManager();
@@ -78,24 +72,21 @@ public class MainActivity extends ActionBarActivity implements ISwipeGesture {
 
     private void initTochEvents() {
         _gestureView = findViewById(R.id.gesture_view);
-
     }
 
     @Override
     public void actionUp(Swipe swipe) {
         Log.d(LOGTAG, swipe.name());
-        switch (swipe){
+        switch (swipe) {
             case UP:
                 _touchView.swipeUp();
                 break;
             case DOWN:
                 _touchView.swipeDown();
                 break;
-
             case LEFT:
                 _touchView.swipeLeft();
                 break;
-
             case RIGHT:
                 _touchView.swipeRight();
                 break;
@@ -133,11 +124,11 @@ public class MainActivity extends ActionBarActivity implements ISwipeGesture {
     }
 
     private void onPlaceRecognized(String place) {
-        if(place.contains(PlacesRecognizer.mockPlaces[1])){
+        if (place.contains(PlacesRecognizer.mockPlaces[1])) {
             //urzad miasta
-           _maps =  MapFactory.getMap(MapFactory.MapType.HOUSE);
+            _maps = MapFactory.getMap(MapFactory.MapType.HOUSE);
 
-        }else if(place.contains(PlacesRecognizer.mockPlaces[0])){
+        } else if (place.contains(PlacesRecognizer.mockPlaces[0])) {
             //lotnisko
             _maps = MapFactory.getMap(MapFactory.MapType.BEACON);
 

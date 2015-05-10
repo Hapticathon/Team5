@@ -50,15 +50,15 @@ public class SwipeGestureDetector extends GestureDetector.SimpleOnGestureListene
 
         if (Math.abs(current_diffX) > Math.abs(current_diffY)) {
             if (current_diffX > 0) {
-                swipe = Swipe.RIGHT;
-            } else {
                 swipe = Swipe.LEFT;
+            } else {
+                swipe = Swipe.RIGHT;
             }
         } else {
             if (current_diffY > 0) {
-                swipe = Swipe.DOWN;
-            } else {
                 swipe = Swipe.UP;
+            } else {
+                swipe = Swipe.DOWN;
             }
         }
         return swipe;
