@@ -35,7 +35,6 @@ public class MainActivity extends ActionBarActivity implements ISwipeGesture {
     public enum PlaceType {AIRPORT, CITY_HALL}
     private TPad _tpad;
     private FrictionMapView _frictionMapView;
-    private SwipeGestureDetector _swipeGesture;
     private TouchView _touchView;
     private Integer[][] _map;
 
@@ -44,13 +43,9 @@ public class MainActivity extends ActionBarActivity implements ISwipeGesture {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        _swipeGesture = new SwipeGestureDetector(this);
 
         _frictionMapView = (FrictionMapView) findViewById(R.id.frictionmap);
         _touchView = (TouchView) findViewById(R.id.touchview);
-
-//        Bitmap bm = Utils.drawableToBitmap(getResources().getDrawable(R.drawable.map6));
-//        _frictionMapView.setDataBitmap(bm);
 
         Bitmap bm = Utils.drawableToBitmap(getResources().getDrawable(R.drawable.map6));
         _frictionMapView.setDataBitmap(bm);
@@ -100,7 +95,6 @@ public class MainActivity extends ActionBarActivity implements ISwipeGesture {
         Bitmap bm = Utils.drawableToBitmap(getResources().getDrawable(res));
         _frictionMapView.setDataBitmap(bm);
 
-//        Toast.makeText(this, swipe.name(), Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -125,7 +119,7 @@ public class MainActivity extends ActionBarActivity implements ISwipeGesture {
         _tpad = new TPadImpl(this);
         _frictionMapView.setTpad(_tpad);
 
-        _map = MapFactory.getMap(MapFactory.MapType.HOUSE);
+        Integer[][] map = MapFactory.getMap(MapFactory.MapType.HOUSE);
 
         _map.getClass();
         _touchView.setMap(_map);
@@ -137,12 +131,12 @@ public class MainActivity extends ActionBarActivity implements ISwipeGesture {
 
         if(place.contains(PlacesRecognizer.mockPlaces[1])){
             //urzad miasta
-            _maps = MapFactory.getMap(MapFactory.MapType.HOUSE);
+            _map = MapFactory.getMap(MapFactory.MapType.HOUSE);
             VibrationManager.vibrate(this, VibrationManager.VibrationType.ACTION_SUCCESS);
 
         } else if (place.contains(PlacesRecognizer.mockPlaces[0])) {
             //lotnisko
-            _maps = MapFactory.getMap(MapFactory.MapType.BEACON);
+            _map = MapFactory.getMap(MapFactory.MapType.BEACON);
             VibrationManager.vibrate(this, VibrationManager.VibrationType.ACTION_SUCCESS);
 
         }
@@ -152,7 +146,7 @@ public class MainActivity extends ActionBarActivity implements ISwipeGesture {
 
         if(PlaceType.CITY_HALL == place){
             //urzad miasta
-            _maps = MapFactory.getMap(MapFactory.MapType.HOUSE);
+            _map = MapFactory.getMap(MapFactory.MapType.HOUSE);
             VibrationManager.vibrate(this, VibrationManager.VibrationType.ACTION_SUCCESS);
 
         } else if(PlaceType.AIRPORT == place) {
