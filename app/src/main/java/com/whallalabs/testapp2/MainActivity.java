@@ -32,7 +32,9 @@ import static com.whallalabs.testapp2.utils.SwipeGestureDetector.*;
 
 public class MainActivity extends ActionBarActivity implements ISwipeGesture {
     public final static String ARG_PLACE_TYPE = "ARG_PLACE_TYPE";
+
     public enum PlaceType {AIRPORT, CITY_HALL}
+
     private TPad _tpad;
     private FrictionMapView _frictionMapView;
     private TouchView _touchView;
@@ -56,7 +58,7 @@ public class MainActivity extends ActionBarActivity implements ISwipeGesture {
         onPlaceRecognized(type);
         checkVoiceRecognition();
         initFrictionLayout();
-        SpeechRecognition speechRecognition = new SpeechRecognition(this, _frictionMapView);
+        SpeechRecognition speechRecognition = new SpeechRecognition(this, _frictionMapView, _touchView);
     }
 
     public void checkVoiceRecognition() {
@@ -106,7 +108,7 @@ public class MainActivity extends ActionBarActivity implements ISwipeGesture {
                 if (recognizedPlace != null) {
                     onPlaceRecognized(recognizedPlace);
                     Log.i("Speech result", recognizedPlace);
-                }else{
+                } else {
                     VibrationManager.vibrate(this, VibrationManager.VibrationType.ACTION_FAIL);
                 }
             }
@@ -124,12 +126,11 @@ public class MainActivity extends ActionBarActivity implements ISwipeGesture {
         _map.getClass();
         _touchView.setMap(_map);
         _touchView.init();
-
     }
 
     private void onPlaceRecognized(String place) {
 
-        if(place.contains(PlacesRecognizer.mockPlaces[1])){
+        if (place.contains(PlacesRecognizer.mockPlaces[1])) {
             //urzad miasta
             _map = MapFactory.getMap(MapFactory.MapType.HOUSE);
             VibrationManager.vibrate(this, VibrationManager.VibrationType.ACTION_SUCCESS);
@@ -149,7 +150,7 @@ public class MainActivity extends ActionBarActivity implements ISwipeGesture {
             _map = MapFactory.getMap(MapFactory.MapType.HOUSE);
             VibrationManager.vibrate(this, VibrationManager.VibrationType.ACTION_SUCCESS);
 
-        } else if(PlaceType.AIRPORT == place) {
+        } else if (PlaceType.AIRPORT == place) {
             //lotnisko
             _map = MapFactory.getMap(MapFactory.MapType.BEACON);
             VibrationManager.vibrate(this, VibrationManager.VibrationType.ACTION_SUCCESS);

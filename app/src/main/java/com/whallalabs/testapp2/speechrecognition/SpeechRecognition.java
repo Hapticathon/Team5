@@ -11,19 +11,24 @@ import android.view.View;
 import com.whallalabs.testapp2.utils.ISwipeGesture;
 import com.whallalabs.testapp2.utils.SwipeGestureDetector;
 
+import nxr.tpad.lib.views.FrictionMapView;
+
 /**
  * Created by kamil on 09.05.15.
  */
 public class SpeechRecognition {
     public final static int REQUEST_SPEECH_RECOGNITION = 55;
     private Activity activity;
+    private FrictionMapView _frictionMapView;
 
     SwipeGestureDetector swipeGestureDetector;
     boolean tripleFingers = false;
 
-    public SpeechRecognition(Activity activity, View doubleTapView) {
+    public SpeechRecognition(Activity activity, FrictionMapView frictionMapView,
+                             View touchableView) {
         this.activity = activity;
-        initDoubleTabListener(doubleTapView);
+        _frictionMapView = frictionMapView;
+        initDoubleTabListener(touchableView);
         swipeGestureDetector = new SwipeGestureDetector((ISwipeGesture) activity);
     }
 
@@ -39,38 +44,38 @@ public class SpeechRecognition {
     }
 
     public void initDoubleTabListener(View view) {
-
-        final GestureDetector gestureDetector = new GestureDetector(activity, new GestureDetector.OnGestureListener() {
-            @Override
-            public boolean onDown(MotionEvent motionEvent) {
-                return false;
-            }
-
-            @Override
-            public void onShowPress(MotionEvent motionEvent) {
-
-            }
-
-            @Override
-            public boolean onSingleTapUp(MotionEvent motionEvent) {
-                return false;
-            }
-
-            @Override
-            public boolean onScroll(MotionEvent motionEvent, MotionEvent motionEvent1, float v, float v1) {
-                return false;
-            }
-
-            @Override
-            public void onLongPress(MotionEvent motionEvent) {
-
-            }
-
-            @Override
-            public boolean onFling(MotionEvent motionEvent, MotionEvent motionEvent1, float v, float v1) {
-                return false;
-            }
-        });
+//
+//        final GestureDetector gestureDetector = new GestureDetector(activity, new GestureDetector.OnGestureListener() {
+//            @Override
+//            public boolean onDown(MotionEvent motionEvent) {
+//                return false;
+//            }
+//
+//            @Override
+//            public void onShowPress(MotionEvent motionEvent) {
+//
+//            }
+//
+//            @Override
+//            public boolean onSingleTapUp(MotionEvent motionEvent) {
+//                return false;
+//            }
+//
+//            @Override
+//            public boolean onScroll(MotionEvent motionEvent, MotionEvent motionEvent1, float v, float v1) {
+//                return false;
+//            }
+//
+//            @Override
+//            public void onLongPress(MotionEvent motionEvent) {
+//
+//            }
+//
+//            @Override
+//            public boolean onFling(MotionEvent motionEvent, MotionEvent motionEvent1, float v, float v1) {
+//                return false;
+//            }
+//        });
 
 //        gestureDetector.setOnDoubleTapListener(new GestureDetector.OnDoubleTapListener() {
 //            @Override
@@ -105,8 +110,7 @@ public class SpeechRecognition {
                         startRecognition();
                     }
                 }
-//                gestureDetector.onTouchEvent(motionEvent);
-                return false;
+                return _frictionMapView.onTouchEvent(motionEvent);
             }
         });
     }
