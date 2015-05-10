@@ -76,6 +76,7 @@ public class SplashScreenActivity extends ActionBarActivity implements ISwipeGes
                 RecognizerIntent.LANGUAGE_MODEL_WEB_SEARCH);
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "pl-PL");
         this.startActivityForResult(intent, SpeechRecognition.REQUEST_SPEECH_RECOGNITION);
+
     }
 
     private void onPlaceRecognized(String place) {
