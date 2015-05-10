@@ -72,23 +72,23 @@ public class SpeechRecognition {
             }
         });
 
-        gestureDetector.setOnDoubleTapListener(new GestureDetector.OnDoubleTapListener() {
-            @Override
-            public boolean onSingleTapConfirmed(MotionEvent motionEvent) {
-                return false;
-            }
-
-            @Override
-            public boolean onDoubleTap(MotionEvent motionEvent) {
-                startRecognition();
-                return false;
-            }
-
-            @Override
-            public boolean onDoubleTapEvent(MotionEvent motionEvent) {
-                return false;
-            }
-        });
+//        gestureDetector.setOnDoubleTapListener(new GestureDetector.OnDoubleTapListener() {
+//            @Override
+//            public boolean onSingleTapConfirmed(MotionEvent motionEvent) {
+//                return false;
+//            }
+//
+//            @Override
+//            public boolean onDoubleTap(MotionEvent motionEvent) {
+//                startRecognition();
+//                return false;
+//            }
+//
+//            @Override
+//            public boolean onDoubleTapEvent(MotionEvent motionEvent) {
+//                return false;
+//            }
+//        });
 
         view.setOnTouchListener(new View.OnTouchListener() {
             @Override

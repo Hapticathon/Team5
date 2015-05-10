@@ -13,13 +13,15 @@ import android.widget.Toast;
 
 import com.whallalabs.testapp2.speechrecognition.PlacesRecognizer;
 import com.whallalabs.testapp2.speechrecognition.SpeechRecognition;
+import com.whallalabs.testapp2.utils.ISwipeGesture;
 import com.whallalabs.testapp2.utils.MapFactory;
+import com.whallalabs.testapp2.utils.SwipeGestureDetector;
 import com.whallalabs.testapp2.utils.VibrationManager;
 
 import java.util.List;
 
 
-public class SplashScreenActivity extends ActionBarActivity {
+public class SplashScreenActivity extends ActionBarActivity implements ISwipeGesture {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,34 +30,8 @@ public class SplashScreenActivity extends ActionBarActivity {
 
         checkVoiceRecognition();
         startRecognition();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_splash_screen, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
+//        SpeechRecognition speechRecognition = new SpeechRecognition(this, findViewById(R.id.splash_root_layout));
+//        speechRecognition.startRecognition();
     }
 
     public void checkVoiceRecognition() {
@@ -76,12 +52,15 @@ public class SplashScreenActivity extends ActionBarActivity {
                 List<String> results = (List<String>) data.getExtras().get(RecognizerIntent.EXTRA_RESULTS);
                 String recognizedPlace = PlacesRecognizer.getRecognizedPlace(results);
                 if (recognizedPlace != null) {
-
                     onPlaceRecognized(recognizedPlace);
                     Log.i("Speech result", recognizedPlace);
-                }else{
+                } else {
                     VibrationManager.vibrate(this, VibrationManager.VibrationType.ACTION_FAIL);
+                    startRecognition();
                 }
+            } else {
+                VibrationManager.vibrate(this, VibrationManager.VibrationType.ACTION_FAIL);
+                startRecognition();
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data);
@@ -102,7 +81,7 @@ public class SplashScreenActivity extends ActionBarActivity {
     private void onPlaceRecognized(String place) {
         Intent intent = new Intent(this, MainActivity.class);
 
-        if(place.contains(PlacesRecognizer.mockPlaces[1])){
+        if (place.contains(PlacesRecognizer.mockPlaces[1])) {
             //urzad miasta
             intent.putExtra(MainActivity.ARG_PLACE_TYPE, MainActivity.PlaceType.CITY_HALL);
 
@@ -113,5 +92,10 @@ public class SplashScreenActivity extends ActionBarActivity {
         }
         finish();
         startActivity(intent);
+    }
+
+    @Override
+    public void actionUp(SwipeGestureDetector.Swipe swipe) {
+
     }
 }
