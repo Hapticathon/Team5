@@ -1,6 +1,5 @@
 package com.whallalabs.testapp2;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
@@ -9,15 +8,12 @@ import android.os.Bundle;
 import android.speech.RecognizerIntent;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
-import android.view.GestureDetector;
-import android.view.View;
 import android.widget.Toast;
 
 import com.whallalabs.testapp2.speechrecognition.PlacesRecognizer;
 import com.whallalabs.testapp2.speechrecognition.SpeechRecognition;
 import com.whallalabs.testapp2.utils.ISwipeGesture;
 import com.whallalabs.testapp2.utils.MapFactory;
-import com.whallalabs.testapp2.utils.SwipeGestureDetector;
 import com.whallalabs.testapp2.utils.Utils;
 import com.whallalabs.testapp2.utils.VibrationManager;
 import com.whallalabs.testapp2.view.TouchView;
@@ -38,8 +34,8 @@ public class MainActivity extends ActionBarActivity implements ISwipeGesture {
     private TPad _tpad;
     private FrictionMapView _frictionMapView;
     private TouchView _touchView;
-    private Integer[][] _map;
-
+    private Integer[][] _dataMap;
+    private Integer[][] _displayMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,7 +89,7 @@ public class MainActivity extends ActionBarActivity implements ISwipeGesture {
         }
         int x = _touchView.getCuurentX();
         int y = _touchView.getCuurentY();
-        Integer res = _map[x][y];
+        Integer res = _dataMap[x][y];
         Bitmap bm = Utils.drawableToBitmap(getResources().getDrawable(res));
         _frictionMapView.setDataBitmap(bm);
 
@@ -121,23 +117,23 @@ public class MainActivity extends ActionBarActivity implements ISwipeGesture {
         _tpad = new TPadImpl(this);
         _frictionMapView.setTpad(_tpad);
 
-        Integer[][] map = MapFactory.getMap(MapFactory.MapType.HOUSE);
-
-        _map.getClass();
-        _touchView.setMap(_map);
+        _touchView.setMap(_displayMap);
         _touchView.init();
     }
 
     private void onPlaceRecognized(String place) {
 
-        if (place.contains(PlacesRecognizer.mockPlaces[1])) {
+        if (place.contains(PlacesRecognizer.mockPlaces[0])) {
             //urzad miasta
-            _map = MapFactory.getMap(MapFactory.MapType.HOUSE);
+            _dataMap = MapFactory.getMap(MapFactory.MapType.OFFICE_DATA);
+            _displayMap = MapFactory.getMap(MapFactory.MapType.OFFICE_DISPLAY);
+
             VibrationManager.vibrate(this, VibrationManager.VibrationType.ACTION_SUCCESS);
 
-        } else if (place.contains(PlacesRecognizer.mockPlaces[0])) {
+        } else if (place.contains(PlacesRecognizer.mockPlaces[1])) {
             //lotnisko
-            _map = MapFactory.getMap(MapFactory.MapType.BEACON);
+            _dataMap = MapFactory.getMap(MapFactory.MapType.AIRPORT_DATA);
+            _displayMap = MapFactory.getMap(MapFactory.MapType.AIRPORT_DISPLAY);
             VibrationManager.vibrate(this, VibrationManager.VibrationType.ACTION_SUCCESS);
 
         }
@@ -145,14 +141,16 @@ public class MainActivity extends ActionBarActivity implements ISwipeGesture {
 
     private void onPlaceRecognized(PlaceType place) {
         VibrationManager.vibrate(this, VibrationManager.VibrationType.ACTION_SUCCESS);
-        if(PlaceType.CITY_HALL == place){
+        if(PlaceType.AIRPORT == place){
             //urzad miasta
-            _map = MapFactory.getMap(MapFactory.MapType.HOUSE);
+            _dataMap = MapFactory.getMap(MapFactory.MapType.OFFICE_DATA);
+            _displayMap = MapFactory.getMap(MapFactory.MapType.OFFICE_DISPLAY);
             VibrationManager.vibrate(this, VibrationManager.VibrationType.ACTION_SUCCESS);
 
-        } else if (PlaceType.AIRPORT == place) {
+        } else if (PlaceType.CITY_HALL == place) {
             //lotnisko
-            _map = MapFactory.getMap(MapFactory.MapType.BEACON);
+            _dataMap = MapFactory.getMap(MapFactory.MapType.AIRPORT_DATA);
+            _displayMap = MapFactory.getMap(MapFactory.MapType.AIRPORT_DISPLAY);
             VibrationManager.vibrate(this, VibrationManager.VibrationType.ACTION_SUCCESS);
 
         }

@@ -35,7 +35,7 @@ public class TouchView extends FrameLayout {
 
 
     private int _cuurentX = 1;
-    private int _cuurentY = 1;
+    private int _cuurentY = 2;
 
     ImageView _mainImageView;
     ImageView _secondImageView;
@@ -67,17 +67,14 @@ public class TouchView extends FrameLayout {
 
     public TouchView(Context context) {
         super(context);
-//        init();
     }
 
     public TouchView(Context context, AttributeSet attrs) {
         super(context, attrs);
-//        init();
     }
 
     public TouchView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-//        init();
     }
 
     public void init() {
@@ -171,7 +168,7 @@ public class TouchView extends FrameLayout {
         try {
             res = _map[_cuurentX - 1][_cuurentY];
         } catch (Exception e) {
-            VibrationManager.vibrate(getContext(), VibrationManager.VibrationType.ACTION_FAIL);
+            VibrationManager.vibrate(getContext(), VibrationManager.VibrationType.ACTION_OUT_OFF_MAP);
         }
 
 
@@ -180,6 +177,8 @@ public class TouchView extends FrameLayout {
             int distance = getDistanceWidth();
             swipe(Direction.LEFT, distance);
             _cuurentX--;
+        }else{
+            VibrationManager.vibrate(getContext(), VibrationManager.VibrationType.ACTION_OUT_OFF_MAP);
         }
 
     }
@@ -189,7 +188,7 @@ public class TouchView extends FrameLayout {
         try {
             res = _map[_cuurentX + 1][_cuurentY];
         } catch (Exception e) {
-            VibrationManager.vibrate(getContext(), VibrationManager.VibrationType.ACTION_FAIL);
+            VibrationManager.vibrate(getContext(), VibrationManager.VibrationType.ACTION_OUT_OFF_MAP);
         }
 
         if (res != null) {
@@ -197,7 +196,10 @@ public class TouchView extends FrameLayout {
             int distance = getDistanceWidth();
             swipe(Direction.RIGHT, distance);
             _cuurentX++;
+        }else{
+            VibrationManager.vibrate(getContext(), VibrationManager.VibrationType.ACTION_OUT_OFF_MAP);
         }
+
     }
 
     public void swipeUp() {
@@ -205,7 +207,7 @@ public class TouchView extends FrameLayout {
         try {
             res = _map[_cuurentX][_cuurentY - 1];
         } catch (Exception e) {
-            VibrationManager.vibrate(getContext(), VibrationManager.VibrationType.ACTION_FAIL);
+            VibrationManager.vibrate(getContext(), VibrationManager.VibrationType.ACTION_OUT_OFF_MAP);
         }
 
         if (res != null) {
@@ -213,7 +215,10 @@ public class TouchView extends FrameLayout {
             int distance = getDistanceHeigth();
             swipe(Direction.UP, distance);
             _cuurentY--;
+        }else{
+            VibrationManager.vibrate(getContext(), VibrationManager.VibrationType.ACTION_OUT_OFF_MAP);
         }
+
     }
 
     public void swipeDown() {
@@ -222,14 +227,17 @@ public class TouchView extends FrameLayout {
 
             res = _map[_cuurentX][_cuurentY + 1];
         } catch (Exception e) {
-            VibrationManager.vibrate(getContext(), VibrationManager.VibrationType.ACTION_FAIL);
+            VibrationManager.vibrate(getContext(), VibrationManager.VibrationType.ACTION_OUT_OFF_MAP);
         }
         if (res != null) {
             _currentSecond.setImageResource(res);
             int distance = getDistanceHeigth();
             swipe(Direction.DOWN, distance);
             _cuurentY++;
+        }else{
+            VibrationManager.vibrate(getContext(), VibrationManager.VibrationType.ACTION_OUT_OFF_MAP);
         }
+
     }
 
     private int getDistanceWidth() {
