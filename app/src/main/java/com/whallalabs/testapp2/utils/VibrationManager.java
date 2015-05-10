@@ -8,27 +8,21 @@ import android.os.Vibrator;
  */
 public class VibrationManager {
     public enum VibrationType {ACTION_SUCCESS, ACTION_FAIL, ACTION_WARNING}
-    private Context _context;
-    private Vibrator _vibrator;
 
-    public VibrationManager(Context context){
-        _context = context;
+    public static void vibrate(Context _context, VibrationType type){
         Vibrator _vibrator = (Vibrator) _context.getSystemService(Context.VIBRATOR_SERVICE);
-    }
-
-    public void vibrate(VibrationType type){
         switch (type){
             case ACTION_SUCCESS:
                 _vibrator.vibrate(500);
                 break;
 
             case ACTION_FAIL:
-                long[] pattern = {500, 500, 500};
-                _vibrator.vibrate(pattern, 3);
+                long[] pattern = { 0, 500, 100, 500, 100, 500};
+                _vibrator.vibrate(pattern, -1);
                 break;
 
             case ACTION_WARNING:
-                _vibrator.vibrate(1000);
+                _vibrator.vibrate(1500);
                 break;
         }
 

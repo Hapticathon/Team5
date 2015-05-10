@@ -19,6 +19,7 @@ import com.whallalabs.testapp2.utils.ISwipeGesture;
 import com.whallalabs.testapp2.utils.MapFactory;
 import com.whallalabs.testapp2.utils.SwipeGestureDetector;
 import com.whallalabs.testapp2.utils.Utils;
+import com.whallalabs.testapp2.utils.VibrationManager;
 import com.whallalabs.testapp2.view.TouchView;
 
 import java.util.List;
@@ -32,29 +33,24 @@ import static com.whallalabs.testapp2.utils.SwipeGestureDetector.*;
 public class MainActivity extends ActionBarActivity implements ISwipeGesture {
     private TPad _tpad;
     private FrictionMapView _frictionMapView;
-    private View _gestureView;
-    private Context _activityContext;
-    private GestureDetector gestureDetector;
     private SwipeGestureDetector _swipeGesture;
     private TouchView _touchView;
     private Integer[][] _maps;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         _swipeGesture = new SwipeGestureDetector(this);
-        gestureDetector = new GestureDetector(this, _swipeGesture);
 
         _frictionMapView = (FrictionMapView) findViewById(R.id.frictionmap);
         _touchView = (TouchView) findViewById(R.id.touchview);
 
-
-        Bitmap bm = Utils.drawableToBitmap(getResources().getDrawable(R.drawable.map6));
-        _frictionMapView.setDataBitmap(bm);
+//        Bitmap bm = Utils.drawableToBitmap(getResources().getDrawable(R.drawable.map6));
+//        _frictionMapView.setDataBitmap(bm);
 
         checkVoiceRecognition();
-        initTochEvents();
         initFrictionLayout();
         SpeechRecognition speechRecognition = new SpeechRecognition(this, _frictionMapView);
     }
@@ -68,10 +64,6 @@ public class MainActivity extends ActionBarActivity implements ISwipeGesture {
             Toast.makeText(this, "Voice recognizer not present",
                     Toast.LENGTH_SHORT).show();
         }
-    }
-
-    private void initTochEvents() {
-        _gestureView = findViewById(R.id.gesture_view);
     }
 
     @Override
@@ -105,6 +97,8 @@ public class MainActivity extends ActionBarActivity implements ISwipeGesture {
                 if (recognizedPlace != null) {
                     onPlaceRecognized(recognizedPlace);
                     Log.i("Speech result", recognizedPlace);
+                }else{
+                    VibrationManager.vibrate(this, VibrationManager.VibrationType.ACTION_FAIL);
                 }
             }
         } else {
@@ -125,13 +119,16 @@ public class MainActivity extends ActionBarActivity implements ISwipeGesture {
     }
 
     private void onPlaceRecognized(String place) {
+
         if(place.contains(PlacesRecognizer.mockPlaces[1])){
             //urzad miasta
             _maps = MapFactory.getMap(MapFactory.MapType.HOUSE);
+            VibrationManager.vibrate(this, VibrationManager.VibrationType.ACTION_SUCCESS);
 
         } else if (place.contains(PlacesRecognizer.mockPlaces[0])) {
             //lotnisko
             _maps = MapFactory.getMap(MapFactory.MapType.BEACON);
+            VibrationManager.vibrate(this, VibrationManager.VibrationType.ACTION_SUCCESS);
 
         }
     }
