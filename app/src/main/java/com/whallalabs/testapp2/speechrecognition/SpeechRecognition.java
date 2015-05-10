@@ -34,6 +34,7 @@ public class SpeechRecognition {
         intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Say institution name");
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
                 RecognizerIntent.LANGUAGE_MODEL_WEB_SEARCH);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "pl-PL");
         activity.startActivityForResult(intent, REQUEST_SPEECH_RECOGNITION);
     }
 
