@@ -37,7 +37,7 @@ public class MainActivity extends ActionBarActivity implements ISwipeGesture {
     private GestureDetector gestureDetector;
     private SwipeGestureDetector _swipeGesture;
     private TouchView _touchView;
-    private Integer[][] _maps;
+    private Integer[][] _map;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +52,7 @@ public class MainActivity extends ActionBarActivity implements ISwipeGesture {
 
         Bitmap bm = Utils.drawableToBitmap(getResources().getDrawable(R.drawable.map6));
         _frictionMapView.setDataBitmap(bm);
+
 
         checkVoiceRecognition();
         initTochEvents();
@@ -91,7 +92,13 @@ public class MainActivity extends ActionBarActivity implements ISwipeGesture {
                 _touchView.swipeRight();
                 break;
         }
-        Toast.makeText(this, swipe.name(), Toast.LENGTH_SHORT).show();
+        int x = _touchView.getCuurentX();
+        int y = _touchView.getCuurentY();
+        Integer res = _map[x][y];
+        Bitmap bm = Utils.drawableToBitmap(getResources().getDrawable(res));
+        _frictionMapView.setDataBitmap(bm);
+
+//        Toast.makeText(this, swipe.name(), Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -114,10 +121,10 @@ public class MainActivity extends ActionBarActivity implements ISwipeGesture {
         _tpad = new TPadImpl(this);
         _frictionMapView.setTpad(_tpad);
 
-        Integer[][] map = MapFactory.getMap(MapFactory.MapType.HOUSE);
+        _map = MapFactory.getMap(MapFactory.MapType.HOUSE);
 
-        map.getClass();
-        _touchView.setMap(map);
+        _map.getClass();
+        _touchView.setMap(_map);
         _touchView.init();
 
 
@@ -126,11 +133,11 @@ public class MainActivity extends ActionBarActivity implements ISwipeGesture {
     private void onPlaceRecognized(String place) {
         if (place.contains(PlacesRecognizer.mockPlaces[1])) {
             //urzad miasta
-            _maps = MapFactory.getMap(MapFactory.MapType.HOUSE);
+            _map = MapFactory.getMap(MapFactory.MapType.HOUSE);
 
         } else if (place.contains(PlacesRecognizer.mockPlaces[0])) {
             //lotnisko
-            _maps = MapFactory.getMap(MapFactory.MapType.BEACON);
+            _map = MapFactory.getMap(MapFactory.MapType.BEACON);
 
         }
     }

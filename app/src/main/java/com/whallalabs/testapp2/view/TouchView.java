@@ -28,8 +28,11 @@ public class TouchView extends FrameLayout {
 
     public static int WIDTH = 720;
     public static int HEIGTH = 1280;
-    public static int ANIMATION_DURATION = 3000;
+    public static int ANIMATION_DURATION = 500;
     private int _count = 1;
+
+
+
     private int _cuurentX = 1;
     private int _cuurentY = 1;
 
@@ -118,14 +121,6 @@ public class TouchView extends FrameLayout {
                 switchCurrent();
 
 
-//                _currentMain.animate()
-//                        .setListener(_animatorListener)
-//                        .translationXBy(points * -1).setDuration(ANIMATION_DURATION).start();
-//                _currentSecond.setTranslationX(points - 1);
-//                setVisible(_currentSecond);
-//                _currentSecond.animate().translationXBy(points * -1).setDuration(ANIMATION_DURATION).start();
-//                switchCurrent();
-
                 break;
             }
             case RIGHT: {
@@ -180,7 +175,7 @@ public class TouchView extends FrameLayout {
 
 
         if (res != null) {
-            _secondImageView.setImageResource(res);
+            _currentSecond.setImageResource(res);
             int distance = getDistanceWidth();
             swipe(Direction.LEFT, distance);
             _cuurentX--;
@@ -197,7 +192,7 @@ public class TouchView extends FrameLayout {
         }
 
         if (res != null) {
-            _secondImageView.setImageResource(res);
+            _currentSecond.setImageResource(res);
             int distance = getDistanceWidth();
             swipe(Direction.RIGHT, distance);
             _cuurentX++;
@@ -213,7 +208,7 @@ public class TouchView extends FrameLayout {
         }
 
         if (res != null) {
-            _secondImageView.setImageResource(res);
+            _currentSecond.setImageResource(res);
             int distance = getDistanceHeigth();
             swipe(Direction.UP, distance);
             _cuurentY--;
@@ -229,7 +224,7 @@ public class TouchView extends FrameLayout {
 
         }
         if (res != null) {
-            _secondImageView.setImageResource(res);
+            _currentSecond.setImageResource(res);
             int distance = getDistanceHeigth();
             swipe(Direction.DOWN, distance);
             _cuurentY++;
@@ -257,4 +252,19 @@ public class TouchView extends FrameLayout {
         _currentSecond = tmp;
     }
 
+    public int getCuurentX() {
+        return _cuurentX;
+    }
+
+    public void setCuurentX(int cuurentX) {
+        _cuurentX = cuurentX;
+    }
+
+    public int getCuurentY() {
+        return _cuurentY;
+    }
+
+    public void setCuurentY(int cuurentY) {
+        _cuurentY = cuurentY;
+    }
 }
