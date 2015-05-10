@@ -7,17 +7,19 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
-        <nxr.tpad.lib.views.FrictionMapView
-            android:id="@+id/frictionmap"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-
         <com.whallalabs.testapp2.view.TouchView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+
             android:id="@+id/touchview">
         </com.whallalabs.testapp2.view.TouchView>
+        <nxr.tpad.lib.views.FrictionMapView
+            android:id="@+id/frictionmap"
+            android:alpha="0"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+
 
     </FrameLayout>
 </RelativeLayout>
