@@ -23,6 +23,9 @@ public class SwipeGestureDetector extends GestureDetector.SimpleOnGestureListene
         if (event.getPointerCount() == 2) {
             doubleFingers = true;
         }
+        if (event.getPointerCount() > 2) {
+            doubleFingers = false;
+        }
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN: {
                 baseX = event.getX();

@@ -19,6 +19,7 @@ public class SpeechRecognition {
     private Activity activity;
 
     SwipeGestureDetector swipeGestureDetector;
+    boolean tripleFingers = false;
 
     public SpeechRecognition(Activity activity, View doubleTapView) {
         this.activity = activity;
@@ -91,10 +92,19 @@ public class SpeechRecognition {
         view.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
-//                if (motionEvent.getPointerCount() == 2) {
+                if (!tripleFingers) {
                     swipeGestureDetector.detecDirection(motionEvent);
-//                }
-                gestureDetector.onTouchEvent(motionEvent);
+                }
+                if (motionEvent.getPointerCount() == 3) {
+                    tripleFingers = true;
+                }
+                if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                    if (tripleFingers) {
+                        tripleFingers = false;
+                        startRecognition();
+                    }
+                }
+//                gestureDetector.onTouchEvent(motionEvent);
                 return false;
             }
         });
