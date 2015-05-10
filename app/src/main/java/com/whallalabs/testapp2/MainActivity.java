@@ -143,7 +143,7 @@ public class MainActivity extends ActionBarActivity implements ISwipeGesture {
     }
 
     private void onPlaceRecognized(PlaceType place) {
-
+        VibrationManager.vibrate(this, VibrationManager.VibrationType.ACTION_SUCCESS);
         if(PlaceType.CITY_HALL == place){
             //urzad miasta
             _map = MapFactory.getMap(MapFactory.MapType.HOUSE);
