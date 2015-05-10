@@ -1,6 +1,7 @@
 <resources>
-    <string name="app_name">TestApp2</string>
-
+    <string name="app_name">Touch</string>
+    <string name="searchable_name">touch</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="title_activity_splash_screen">@string/app_name</string>
 </resources>
