@@ -132,6 +132,7 @@ public class MainActivity extends ActionBarActivity implements ISwipeGesture {
     }
 
     private void onPlaceRecognized(String place) {
+
         if(place.contains(PlacesRecognizer.mockPlaces[1])){
             //urzad miasta
            _maps =  MapFactory.getMap(MapFactory.MapType.HOUSE);
