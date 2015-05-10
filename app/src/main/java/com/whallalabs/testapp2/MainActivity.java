@@ -31,6 +31,8 @@ import nxr.tpad.lib.views.FrictionMapView;
 import static com.whallalabs.testapp2.utils.SwipeGestureDetector.*;
 
 public class MainActivity extends ActionBarActivity implements ISwipeGesture {
+    public final static String ARG_PLACE_TYPE = "ARG_PLACE_TYPE";
+    public enum PlaceType {AIRPORT, CITY_HALL}
     private TPad _tpad;
     private FrictionMapView _frictionMapView;
     private SwipeGestureDetector _swipeGesture;
@@ -50,6 +52,9 @@ public class MainActivity extends ActionBarActivity implements ISwipeGesture {
 //        Bitmap bm = Utils.drawableToBitmap(getResources().getDrawable(R.drawable.map6));
 //        _frictionMapView.setDataBitmap(bm);
 
+        Intent intent = getIntent();
+        PlaceType type = (PlaceType) intent.getSerializableExtra(ARG_PLACE_TYPE);
+        onPlaceRecognized(type);
         checkVoiceRecognition();
         initFrictionLayout();
         SpeechRecognition speechRecognition = new SpeechRecognition(this, _frictionMapView);
@@ -126,6 +131,21 @@ public class MainActivity extends ActionBarActivity implements ISwipeGesture {
             VibrationManager.vibrate(this, VibrationManager.VibrationType.ACTION_SUCCESS);
 
         } else if (place.contains(PlacesRecognizer.mockPlaces[0])) {
+            //lotnisko
+            _maps = MapFactory.getMap(MapFactory.MapType.BEACON);
+            VibrationManager.vibrate(this, VibrationManager.VibrationType.ACTION_SUCCESS);
+
+        }
+    }
+
+    private void onPlaceRecognized(PlaceType place) {
+
+        if(PlaceType.CITY_HALL == place){
+            //urzad miasta
+            _maps = MapFactory.getMap(MapFactory.MapType.HOUSE);
+            VibrationManager.vibrate(this, VibrationManager.VibrationType.ACTION_SUCCESS);
+
+        } else if(PlaceType.AIRPORT == place) {
             //lotnisko
             _maps = MapFactory.getMap(MapFactory.MapType.BEACON);
             VibrationManager.vibrate(this, VibrationManager.VibrationType.ACTION_SUCCESS);
